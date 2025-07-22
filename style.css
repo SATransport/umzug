@@ -1,0 +1,8 @@
+
+@font-face {
+  font-family: 'JdCarnivalBlack';
+  src: url('JdCarnivalBlack.ttf') format('truetype');
+}
+.font-jdcarnival {
+  font-family: 'JdCarnivalBlack', 'Courier New', Courier, monospace, sans-serif;
+}
