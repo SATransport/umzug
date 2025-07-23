@@ -1,0 +1,69 @@
+
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Umzugsanfrage</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    @font-face {
+      font-family: 'JdCarnivalBlack';
+      src: url('JdCarnivalBlack.ttf') format('truetype');
+    }
+    body {
+      font-family: 'JdCarnivalBlack', sans-serif;
+    }
+    .flag-btn img { width: 24px; height: 24px; }
+    .icon { width: 32px; height: 32px; }
+  </style>
+</head>
+<body class="min-h-screen bg-gradient-to-br from-blue-100 via-purple-100 to-pink-100 flex items-center justify-center p-4">
+  <div class="backdrop-blur-lg bg-white/80 max-w-2xl w-full p-6 rounded-2xl shadow-2xl space-y-4 border border-white">
+    <div class="flex justify-between items-center">
+      <img src="logo.png" alt="Logo" class="h-12" />
+      <div class="flex space-x-2">
+        <button class="flag-btn" onclick="setLang('de')"><img src="https://flagcdn.com/w40/de.png" alt="DE"></button>
+        <button class="flag-btn" onclick="setLang('en')"><img src="https://flagcdn.com/w40/gb.png" alt="EN"></button>
+        <button class="flag-btn" onclick="setLang('ru')"><img src="https://flagcdn.com/w40/ru.png" alt="RU"></button>
+        <button class="flag-btn" onclick="setLang('ua')"><img src="https://flagcdn.com/w40/ua.png" alt="UA"></button>
+        <button class="flag-btn" onclick="setLang('ar')"><img src="https://flagcdn.com/w40/sa.png" alt="AR"></button>
+      </div>
+    </div>
+
+    <h1 class="text-xl font-bold" id="title">Willkommen! Bitte füllen Sie das Umzugsformular aus.</h1>
+    <form action="https://formspree.io/f/mzzverll" method="POST">
+      <input name="punktA" type="text" placeholder="Punkt A (Adresse)" class="w-full border p-2 rounded my-1" required />
+      <input name="punktB" type="text" placeholder="Punkt B (Adresse)" class="w-full border p-2 rounded my-1" required />
+      <input name="etageA" type="number" placeholder="Etage A" class="w-full border p-2 rounded my-1" />
+      <input name="etageB" type="number" placeholder="Etage B" class="w-full border p-2 rounded my-1" />
+      <input name="parkA" type="number" placeholder="Parkdistanz A (m)" class="w-full border p-2 rounded my-1" />
+      <input name="parkB" type="number" placeholder="Parkdistanz B (m)" class="w-full border p-2 rounded my-1" />
+      <select name="trager" class="w-full border p-2 rounded my-1">
+        <option value="">Gibt es Träger?</option>
+        <option value="no">Nein</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3+">3+</option>
+      </select>
+      <select name="verpackung" class="w-full border p-2 rounded my-1">
+        <option value="">Verpackungsmaterial benötigt?</option>
+        <option value="no">Nein</option>
+        <option value="yes">Ja</option>
+      </select>
+      <input type="datetime-local" name="zeit" class="w-full border p-2 rounded my-1" />
+      <textarea name="info" placeholder="Zusätzliche Infos" class="w-full border p-2 rounded my-1"></textarea>
+
+      <div class="flex space-x-4 mt-2 items-center">
+        <a href="https://wa.me/4916095080073" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" class="icon"></a>
+        <a href="https://t.me/SATransportAugsburg" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg" alt="Telegram" class="icon"></a>
+        <a href="mailto:antokhiviacheslav@gmail.com"><img src="https://upload.wikimedia.org/wikipedia/commons/4/4e/Gmail_Icon.png" alt="Email" class="icon"></a>
+        <a href="https://www.kleinanzeigen.de/s-bestandsliste.html?userId=142488937" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/e/e0/Kleinanzeigen_Logo.png" alt="Kleinanzeigen" class="icon"></a>
+      </div>
+
+      <button type="submit" class="mt-6 w-full bg-green-500 text-white p-2 rounded hover:bg-green-600 transition">Absenden</button>
+    </form>
+  </div>
+</body>
+</html>
