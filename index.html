@@ -1,75 +1,209 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Professionelle Umzugsanfrage bei SA Transport Augsburg - Schnell und zuverlässig">
-  <title>Umzugsanfrage | SA Transport Augsburg</title>
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🚚</text></svg>">
-  <link rel="stylesheet" href="styles.css">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="manifest" href="manifest.json">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Форма заказа грузоперевозок по Аугсбургу</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        .form-container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+            font-weight: bold;
+        }
+        input, select, textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #28a745;
+            color: #fff;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        .error {
+            color: red;
+            font-size: 12px;
+            display: none;
+        }
+    </style>
 </head>
-<body class="min-h-screen bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 flex items-center justify-center p-4 font-sans">
-  <div class="backdrop-blur-lg bg-white/90 max-w-2xl w-full p-6 rounded-2xl shadow-xl space-y-6 border border-white/30">
-    <header class="flex justify-between items-center">
-      <div class="flex items-center space-x-4">
-        <img src="logo.png" alt="SA Transport Augsburg Logo" class="logo" loading="lazy">
-        <h1 class="text-2xl font-bold text-gray-800" id="title">Umzugsanfrage</h1>
-      </div>
-      <div class="flex space-x-2">
-        <button class="flag-btn" onclick="setLang('de')" aria-label="Deutsch">
-          <img src="https://flagcdn.com/w40/de.png" alt="DE" width="24" height="24" loading="lazy">
-        </button>
-        <button class="flag-btn" onclick="setLang('en')" aria-label="English">
-          <img src="https://flagcdn.com/w40/gb.png" alt="EN" width="24" height="24" loading="lazy">
-        </button>
-        <button class="flag-btn" onclick="setLang('ru')" aria-label="Русский">
-          <img src="https://flagcdn.com/w40/ru.png" alt="RU" width="24" height="24" loading="lazy">
-        </button>
-        <button class="flag-btn" onclick="setLang('ua')" aria-label="Українська">
-          <img src="https://flagcdn.com/w40/ua.png" alt="UA" width="24" height="24" loading="lazy">
-        </button>
-        <button class="flag-btn" onclick="setLang('ar')" aria-label="العربية">
-          <img src="https://flagcdn.com/w40/sa.png" alt="AR" width="24" height="24" loading="lazy">
-        </button>
-      </div>
-    </header>
-    <p class="text-center text-lg text-gray-600" id="welcomeMessage">Willkommen! Bitte füllen Sie das Formular aus und wir melden uns bei Ihnen.</p>
-    <form id="movingForm" action="https://formspree.io/f/mzzverll" method="POST" class="space-y-5">
-      <div class="space-y-4">
-        <div><label class="block text-gray-700 mb-1 font-medium" id="labelA">Punkt A (Adresse)</label><input name="punktA" type="text" class="w-full border border-gray-300 p-3 rounded-lg form-input" required placeholder="Straße, Hausnummer, Stadt" /></div>
-        <div><label class="block text-gray-700 mb-1 font-medium" id="labelB">Punkt B (Adresse)</label><input name="punktB" type="text" class="w-full border border-gray-300 p-3 rounded-lg form-input" required placeholder="Straße, Hausnummer, Stadt" /></div>
-      </div>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
-        <div class="space-y-3"><div><label class="block text-gray-700 mb-1 font-medium" id="etageA">Etage (A)</label><input type="number" name="etageA" min="0" class="w-full border border-gray-300 p-3 rounded-lg form-input" placeholder="0" /></div><div class="flex items-center"><input type="checkbox" name="aufzugA" id="aufzugA" class="mr-2 h-5 w-5 text-blue-600" /><label for="aufzugA" class="text-gray-700" id="liftA">Aufzug vorhanden (A)</label></div></div>
-        <div class="space-y-3"><div><label class="block text-gray-700 mb-1 font-medium" id="etageB">Etage (B)</label><input type="number" name="etageB" min="0" class="w-full border border-gray-300 p-3 rounded-lg form-input" placeholder="0" /></div><div class="flex items-center"><input type="checkbox" name="aufzugB" id="aufzugB" class="mr-2 h-5 w-5 text-blue-600" /><label for="aufzugB" class="text-gray-700" id="liftB">Aufzug vorhanden (B)</label></div></div>
-      </div>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
-        <div><label class="block text-gray-700 mb-1 font-medium" id="distA">Parkdistanz A (Meter)</label><input type="number" name="parkA" min="0" class="w-full border border-gray-300 p-3 rounded-lg form-input" placeholder="0" /></div>
-        <div><label class="block text-gray-700 mb-1 font-medium" id="distB">Parkdistanz B (Meter)</label><input type="number" name="parkB" min="0" class="w-full border border-gray-300 p-3 rounded-lg form-input" placeholder="0" /></div>
-      </div>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
-        <div><label class="block text-gray-700 mb-1 font-medium" id="tragerLabel">Gibt es Träger?</label><select name="trager" class="w-full border border-gray-300 p-3 rounded-lg form-input bg-white"><option value="no">Nein</option><option value="1">1 Träger</option><option value="2">2 Träger</option><option value="3+">3+ Träger</option></select></div>
-        <div><label class="block text-gray-700 mb-1 font-medium" id="packing">Verpackungsmaterial nötig?</label><select name="verpackung" class="w-full border border-gray-300 p-3 rounded-lg form-input bg-white"><option value="no">Nein</option><option value="yes">Ja</option></select></div>
-      </div>
-      <div><label class="block text-gray-700 mb-1 font-medium" id="datetime">Datum & Uhrzeit</label><input type="datetime-local" name="zeit" class="w-full border border-gray-300 p-3 rounded-lg form-input" /></div>
-      <div><label class="block text-gray-700 mb-1 font-medium" id="info">Zusätzliche Infos</label><textarea name="info" rows="3" class="w-full border border-gray-300 p-3 rounded-lg form-input" placeholder="Besondere Anforderungen, Möbelstücke, etc."></textarea></div>
-      <div><label class="block text-gray-700 mb-1 font-medium" id="contactLabel">Kontaktart:</label><div class="flex space-x-4 mt-2 items-center justify-center"><a href="https://wa.me/4916095080073" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp"><img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" class="icon" loading="lazy"></a><a href="https://t.me/SATransportAugsburg" target="_blank" rel="noopener noreferrer" aria-label="Telegram"><img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg" alt="Telegram" class="icon" loading="lazy"></a><a href="mailto:antokhiviacheslav@gmail.com" aria-label="Email"><img src="https://upload.wikimedia.org/wikipedia/commons/4/4e/Gmail_Icon.png" alt="Email" class="icon" loading="lazy"></a></div></div>
-      <button type="submit" class="mt-4 w-full bg-gradient-to-r from-blue-500 to-blue-600 text-white p-3 rounded-lg hover:from-blue-600 hover:to-blue-700 transition-all shadow-md font-medium" id="submitBtn">Absenden</button>
-    </form>
-    <footer class="text-center mt-6 pt-4 border-t border-gray-200">
-      <a href="https://www.kleinanzeigen.de/s-bestandsliste.html?userId=142488937" target="_blank" rel="noopener noreferrer" class="inline-flex items-center space-x-2 text-blue-600 hover:text-blue-800 transition-colors"><img src="kleinanzeigen.png" alt="Kleinanzeigen" class="h-6" loading="lazy" /><span id="kleinanzeigenLink">Meine Kleinanzeigen</span></a>
-      <p class="mt-3 text-gray-500 text-sm">&copy; 2023 SA Transport Augsburg. Alle Rechte vorbehalten.</p>
-    </footer>
-  </div>
-  <script type="module" src="script.js" defer></script>
-  <script>
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('/sw.js').then(() => console.log('Service Worker registered'));
-    }
-  </script>
+<body>
+    <div class="form-container">
+        <h1>Заказ грузоперевозок по Аугсбургу</h1>
+        <form id="cargoForm" onsubmit="validateForm(event)">
+            <!-- Контактная информация -->
+            <label for="name">Имя и фамилия *</label>
+            <input type="text" id="name" name="name" required>
+            <span class="error" id="nameError">Пожалуйста, введите имя и фамилию</span>
+
+            <label for="phone">Телефон *</label>
+            <input type="tel" id="phone" name="phone" pattern="[0-9]{10,15}" required>
+            <span class="error" id="phoneError">Пожалуйста, введите корректный номер телефона</span>
+
+            <label for="email">Email *</label>
+            <input type="email" id="email" name="email" required>
+            <span class="error" id="emailError">Пожалуйста, введите корректный email</span>
+
+            <!-- Адреса -->
+            <label for="pickupAddress">Адрес погрузки *</label>
+            <input type="text" id="pickupAddress" name="pickupAddress" placeholder="Улица, дом, город (Аугсбург)" required>
+            <span class="error" id="pickupAddressError">Пожалуйста, укажите адрес погрузки</span>
+
+            <label for="deliveryAddress">Адрес доставки *</label>
+            <input type="text" id="deliveryAddress" name="deliveryAddress" placeholder="Улица, дом, город (Аугсбург)" required>
+            <span class="error" id="deliveryAddressError">Пожалуйста, укажите адрес доставки</span>
+
+            <!-- Детали груза -->
+            <label for="cargoType">Тип груза *</label>
+            <select id="cargoType" name="cargoType" required>
+                <option value="">Выберите тип груза</option>
+                <option value="furniture">Мебель</option>
+                <option value="appliances">Бытовая техника</option>
+                <option value="construction">Строительные материалы</option>
+                <option value="pallets">Паллеты</option>
+                <option value="other">Другое</option>
+            </select>
+            <span class="error" id="cargoTypeError">Пожалуйста, выберите тип груза</span>
+
+            <label for="weight">Вес груза (кг) *</label>
+            <input type="number" id="weight" name="weight" min="1" required>
+            <span class="error" id="weightError">Пожалуйста, укажите вес груза</span>
+
+            <label for="dimensions">Габариты груза (Д x Ш x В, см)</label>
+            <input type="text" id="dimensions" name="dimensions" placeholder="Например, 200 x 100 x 150">
+
+            <!-- Тип транспорта -->
+            <label for="vehicleType">Тип транспорта *</label>
+            <select id="vehicleType" name="vehicleType" required>
+                <option value="">Выберите тип транспорта</option>
+                <option value="van">Фургон (до 1.5 т)</option>
+                <option value="truck">Грузовик (до 3.5 т)</option>
+                <option value="largeTruck">Большой грузовик (до 10 т)</option>
+                <option value="special">Спецтехника</option>
+            </select>
+            <span class="error" id="vehicleTypeError">Пожалуйста, выберите тип транспорта</span>
+
+            <!-- Дополнительные услуги -->
+            <label>Дополнительные услуги</label>
+            <input type="checkbox" id="loading" name="services" value="loading">
+            <label for="loading" style="display: inline;">Услуги грузчиков</label><br>
+            <input type="checkbox" id="packaging" name="services" value="packaging">
+            <label for="packaging" style="display: inline;">Упаковка груза</label><br>
+            <input type="checkbox" id="urgent" name="services" value="urgent">
+            <label for="urgent" style="display: inline;">Срочная доставка</label><br>
+
+            <!-- Дата и время -->
+            <label for="pickupDate">Дата погрузки *</label>
+            <input type="date" id="pickupDate" name="pickupDate" required>
+            <span class="error" id="pickupDateError">Пожалуйста, выберите дату погрузки</span>
+
+            <label for="pickupTime">Время погрузки</label>
+            <input type="time" id="pickupTime" name="pickupTime">
+
+            <!-- Комментарии -->
+            <label for="comments">Комментарии к заказу</label>
+            <textarea id="comments" name="comments" rows="4" placeholder="Укажите особые требования или дополнительную информацию"></textarea>
+
+            <button type="submit">Отправить заказ</button>
+        </form>
+    </div>
+
+    <script>
+        function validateForm(event) {
+            event.preventDefault();
+            let isValid = true;
+
+            // Сброс ошибок
+            document.querySelectorAll('.error').forEach(error => error.style.display = 'none');
+
+            // Валидация обязательных полей
+            const name = document.getElementById('name').value.trim();
+            if (!name) {
+                document.getElementById('nameError').style.display = 'block';
+                isValid = false;
+            }
+
+            const phone = document.getElementById('phone').value.trim();
+            if (!phone.match(/[0-9]{10,15}/)) {
+                document.getElementById('phoneError').style.display = 'block';
+                isValid = false;
+            }
+
+            const email = document.getElementById('email').value.trim();
+            if (!email.match(/^[^@]+@[^@]+\.[^@]+$/)) {
+                document.getElementById('emailError').style.display = 'block';
+                isValid = false;
+            }
+
+            const pickupAddress = document.getElementById('pickupAddress').value.trim();
+            if (!pickupAddress) {
+                document.getElementById('pickupAddressError').style.display = 'block';
+                isValid = false;
+            }
+
+            const deliveryAddress = document.getElementById('deliveryAddress').value.trim();
+            if (!deliveryAddress) {
+                document.getElementById('deliveryAddressError').style.display = 'block';
+                isValid = false;
+            }
+
+            const cargoType = document.getElementById('cargoType').value;
+            if (!cargoType) {
+                document.getElementById('cargoTypeError').style.display = 'block';
+                isValid = false;
+            }
+
+            const weight = document.getElementById('weight').value;
+            if (!weight || weight <= 0) {
+                document.getElementById('weightError').style.display = 'block';
+                isValid = false;
+            }
+
+            const vehicleType = document.getElementById('vehicleType').value;
+            if (!vehicleType) {
+                document.getElementById('vehicleTypeError').style.display = 'block';
+                isValid = false;
+            }
+
+            const pickupDate = document.getElementById('pickupDate').value;
+            if (!pickupDate) {
+                document.getElementById('pickupDateError').style.display = 'block';
+                isValid = false;
+            }
+
+            if (isValid) {
+                alert('Заказ успешно отправлен!');
+                document.getElementById('cargoForm').reset();
+            }
+        }
+    </script>
 </body>
 </html>
