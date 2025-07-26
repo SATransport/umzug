@@ -5,79 +5,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Professionelle Umzugsanfrage bei SA Transport Augsburg - Schnell und zuverlässig">
   <title>Umzugsanfrage | SA Transport Augsburg</title>
-  
-  <!-- Tailwind CSS -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          fontFamily: {
-            sans: ['Inter', 'sans-serif'],
-          },
-        },
-      },
-    };
-  </script>
-  
-  <!-- Google Fonts -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🚚</text></svg>">
+  <link rel="stylesheet" href="styles.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  
-  <style>
-    /* Локальные стили */
-    .flag-btn { 
-      transition: transform 0.2s; 
-    }
-    .flag-btn:hover { 
-      transform: scale(1.1); 
-    }
-    .icon { 
-      width: 32px; 
-      height: 32px; 
-      transition: transform 0.2s;
-    }
-    .icon:hover {
-      transform: scale(1.1);
-    }
-    .logo { 
-      height: 50px; 
-    }
-    .form-input {
-      transition: border-color 0.2s, box-shadow 0.2s;
-    }
-    .form-input:focus {
-      border-color: #3b82f6;
-      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
-      outline: none;
-    }
-    #submitBtn:disabled {
-      opacity: 0.7;
-      cursor: not-allowed;
-    }
-    .animate-pulse {
-      animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-    }
-    @keyframes pulse {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.5; }
-    }
-  </style>
-  
-  <!-- Favicon -->
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🚚</text></svg>">
+  <link rel="manifest" href="manifest.json">
 </head>
 <body class="min-h-screen bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 flex items-center justify-center p-4 font-sans">
   <div class="backdrop-blur-lg bg-white/90 max-w-2xl w-full p-6 rounded-2xl shadow-xl space-y-6 border border-white/30">
-    <!-- Header -->
     <header class="flex justify-between items-center">
       <div class="flex items-center space-x-4">
         <img src="logo.png" alt="SA Transport Augsburg Logo" class="logo" loading="lazy">
         <h1 class="text-2xl font-bold text-gray-800" id="title">Umzugsanfrage</h1>
       </div>
-      
-      <!-- Language Selector -->
       <div class="flex space-x-2">
         <button class="flag-btn" onclick="setLang('de')" aria-label="Deutsch">
           <img src="https://flagcdn.com/w40/de.png" alt="DE" width="24" height="24" loading="lazy">
@@ -96,290 +37,39 @@
         </button>
       </div>
     </header>
-
-    <!-- Welcome Message -->
-    <p class="text-center text-lg text-gray-600" id="welcomeMessage">
-      Willkommen! Bitte füllen Sie das Formular aus und wir melden uns bei Ihnen.
-    </p>
-
-    <!-- Main Form -->
+    <p class="text-center text-lg text-gray-600" id="welcomeMessage">Willkommen! Bitte füllen Sie das Formular aus und wir melden uns bei Ihnen.</p>
     <form id="movingForm" action="https://formspree.io/f/mzzverll" method="POST" class="space-y-5">
-      <!-- Address Section -->
       <div class="space-y-4">
-        <div>
-          <label class="block text-gray-700 mb-1 font-medium" id="labelA">Punkt A (Adresse)</label>
-          <input name="punktA" type="text" class="w-full border border-gray-300 p-3 rounded-lg form-input" required placeholder="Straße, Hausnummer, Stadt" />
-        </div>
-        <div>
-          <label class="block text-gray-700 mb-1 font-medium" id="labelB">Punkt B (Adresse)</label>
-          <input name="punktB" type="text" class="w-full border border-gray-300 p-3 rounded-lg form-input" required placeholder="Straße, Hausnummer, Stadt" />
-        </div>
+        <div><label class="block text-gray-700 mb-1 font-medium" id="labelA">Punkt A (Adresse)</label><input name="punktA" type="text" class="w-full border border-gray-300 p-3 rounded-lg form-input" required placeholder="Straße, Hausnummer, Stadt" /></div>
+        <div><label class="block text-gray-700 mb-1 font-medium" id="labelB">Punkt B (Adresse)</label><input name="punktB" type="text" class="w-full border border-gray-300 p-3 rounded-lg form-input" required placeholder="Straße, Hausnummer, Stadt" /></div>
       </div>
-
-      <!-- Floor and Elevator Section -->
       <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
-        <div class="space-y-3">
-          <div>
-            <label class="block text-gray-700 mb-1 font-medium" id="etageA">Etage (A)</label>
-            <input type="number" name="etageA" min="0" class="w-full border border-gray-300 p-3 rounded-lg form-input" placeholder="0" />
-          </div>
-          <div class="flex items-center">
-            <input type="checkbox" name="aufzugA" id="aufzugA" class="mr-2 h-5 w-5 text-blue-600" />
-            <label for="aufzugA" class="text-gray-700" id="liftA">Aufzug vorhanden (A)</label>
-          </div>
-        </div>
-        
-        <div class="space-y-3">
-          <div>
-            <label class="block text-gray-700 mb-1 font-medium" id="etageB">Etage (B)</label>
-            <input type="number" name="etageB" min="0" class="w-full border border-gray-300 p-3 rounded-lg form-input" placeholder="0" />
-          </div>
-          <div class="flex items-center">
-            <input type="checkbox" name="aufzugB" id="aufzugB" class="mr-2 h-5 w-5 text-blue-600" />
-            <label for="aufzugB" class="text-gray-700" id="liftB">Aufzug vorhanden (B)</label>
-          </div>
-        </div>
+        <div class="space-y-3"><div><label class="block text-gray-700 mb-1 font-medium" id="etageA">Etage (A)</label><input type="number" name="etageA" min="0" class="w-full border border-gray-300 p-3 rounded-lg form-input" placeholder="0" /></div><div class="flex items-center"><input type="checkbox" name="aufzugA" id="aufzugA" class="mr-2 h-5 w-5 text-blue-600" /><label for="aufzugA" class="text-gray-700" id="liftA">Aufzug vorhanden (A)</label></div></div>
+        <div class="space-y-3"><div><label class="block text-gray-700 mb-1 font-medium" id="etageB">Etage (B)</label><input type="number" name="etageB" min="0" class="w-full border border-gray-300 p-3 rounded-lg form-input" placeholder="0" /></div><div class="flex items-center"><input type="checkbox" name="aufzugB" id="aufzugB" class="mr-2 h-5 w-5 text-blue-600" /><label for="aufzugB" class="text-gray-700" id="liftB">Aufzug vorhanden (B)</label></div></div>
       </div>
-
-      <!-- Parking Distance -->
       <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
-        <div>
-          <label class="block text-gray-700 mb-1 font-medium" id="distA">Parkdistanz A (Meter)</label>
-          <input type="number" name="parkA" min="0" class="w-full border border-gray-300 p-3 rounded-lg form-input" placeholder="0" />
-        </div>
-        <div>
-          <label class="block text-gray-700 mb-1 font-medium" id="distB">Parkdistanz B (Meter)</label>
-          <input type="number" name="parkB" min="0" class="w-full border border-gray-300 p-3 rounded-lg form-input" placeholder="0" />
-        </div>
+        <div><label class="block text-gray-700 mb-1 font-medium" id="distA">Parkdistanz A (Meter)</label><input type="number" name="parkA" min="0" class="w-full border border-gray-300 p-3 rounded-lg form-input" placeholder="0" /></div>
+        <div><label class="block text-gray-700 mb-1 font-medium" id="distB">Parkdistanz B (Meter)</label><input type="number" name="parkB" min="0" class="w-full border border-gray-300 p-3 rounded-lg form-input" placeholder="0" /></div>
       </div>
-
-      <!-- Movers and Packing -->
       <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
-        <div>
-          <label class="block text-gray-700 mb-1 font-medium" id="tragerLabel">Gibt es Träger?</label>
-          <select name="trager" class="w-full border border-gray-300 p-3 rounded-lg form-input bg-white">
-            <option value="no">Nein</option>
-            <option value="1">1 Träger</option>
-            <option value="2">2 Träger</option>
-            <option value="3+">3+ Träger</option>
-          </select>
-        </div>
-        <div>
-          <label class="block text-gray-700 mb-1 font-medium" id="packing">Verpackungsmaterial nötig?</label>
-          <select name="verpackung" class="w-full border border-gray-300 p-3 rounded-lg form-input bg-white">
-            <option value="no">Nein</option>
-            <option value="yes">Ja</option>
-          </select>
-        </div>
+        <div><label class="block text-gray-700 mb-1 font-medium" id="tragerLabel">Gibt es Träger?</label><select name="trager" class="w-full border border-gray-300 p-3 rounded-lg form-input bg-white"><option value="no">Nein</option><option value="1">1 Träger</option><option value="2">2 Träger</option><option value="3+">3+ Träger</option></select></div>
+        <div><label class="block text-gray-700 mb-1 font-medium" id="packing">Verpackungsmaterial nötig?</label><select name="verpackung" class="w-full border border-gray-300 p-3 rounded-lg form-input bg-white"><option value="no">Nein</option><option value="yes">Ja</option></select></div>
       </div>
-
-      <!-- Date and Additional Info -->
-      <div>
-        <label class="block text-gray-700 mb-1 font-medium" id="datetime">Datum & Uhrzeit</label>
-        <input type="datetime-local" name="zeit" class="w-full border border-gray-300 p-3 rounded-lg form-input" />
-      </div>
-      
-      <div>
-        <label class="block text-gray-700 mb-1 font-medium" id="info">Zusätzliche Infos</label>
-        <textarea name="info" rows="3" class="w-full border border-gray-300 p-3 rounded-lg form-input" placeholder="Besondere Anforderungen, Möbelstücke, etc."></textarea>
-      </div>
-
-      <!-- Contact Methods -->
-      <div>
-        <label class="block text-gray-700 mb-1 font-medium" id="contactLabel">Kontaktart:</label>
-        <div class="flex space-x-4 mt-2 items-center justify-center">
-          <a href="https://wa.me/4916095080073" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" class="icon">
-          </a>
-          <a href="https://t.me/SATransportAugsburg" target="_blank" rel="noopener noreferrer" aria-label="Telegram">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg" alt="Telegram" class="icon">
-          </a>
-          <a href="mailto:antokhiviacheslav@gmail.com" aria-label="Email">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/4/4e/Gmail_Icon.png" alt="Email" class="icon">
-          </a>
-        </div>
-      </div>
-
-      <!-- Submit Button -->
-      <button type="submit" class="mt-4 w-full bg-gradient-to-r from-blue-500 to-blue-600 text-white p-3 rounded-lg hover:from-blue-600 hover:to-blue-700 transition-all shadow-md font-medium" id="submitBtn">
-        Absenden
-      </button>
+      <div><label class="block text-gray-700 mb-1 font-medium" id="datetime">Datum & Uhrzeit</label><input type="datetime-local" name="zeit" class="w-full border border-gray-300 p-3 rounded-lg form-input" /></div>
+      <div><label class="block text-gray-700 mb-1 font-medium" id="info">Zusätzliche Infos</label><textarea name="info" rows="3" class="w-full border border-gray-300 p-3 rounded-lg form-input" placeholder="Besondere Anforderungen, Möbelstücke, etc."></textarea></div>
+      <div><label class="block text-gray-700 mb-1 font-medium" id="contactLabel">Kontaktart:</label><div class="flex space-x-4 mt-2 items-center justify-center"><a href="https://wa.me/4916095080073" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp"><img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" class="icon" loading="lazy"></a><a href="https://t.me/SATransportAugsburg" target="_blank" rel="noopener noreferrer" aria-label="Telegram"><img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg" alt="Telegram" class="icon" loading="lazy"></a><a href="mailto:antokhiviacheslav@gmail.com" aria-label="Email"><img src="https://upload.wikimedia.org/wikipedia/commons/4/4e/Gmail_Icon.png" alt="Email" class="icon" loading="lazy"></a></div></div>
+      <button type="submit" class="mt-4 w-full bg-gradient-to-r from-blue-500 to-blue-600 text-white p-3 rounded-lg hover:from-blue-600 hover:to-blue-700 transition-all shadow-md font-medium" id="submitBtn">Absenden</button>
     </form>
-
-    <!-- Footer -->
     <footer class="text-center mt-6 pt-4 border-t border-gray-200">
-      <a href="https://www.kleinanzeigen.de/s-bestandsliste.html?userId=142488937" target="_blank" rel="noopener noreferrer" class="inline-flex items-center space-x-2 text-blue-600 hover:text-blue-800 transition-colors">
-        <img src="kleinanzeigen.png" alt="Kleinanzeigen" class="h-6" loading="lazy" />
-        <span id="kleinanzeigenLink">Meine Kleinanzeigen</span>
-      </a>
+      <a href="https://www.kleinanzeigen.de/s-bestandsliste.html?userId=142488937" target="_blank" rel="noopener noreferrer" class="inline-flex items-center space-x-2 text-blue-600 hover:text-blue-800 transition-colors"><img src="kleinanzeigen.png" alt="Kleinanzeigen" class="h-6" loading="lazy" /><span id="kleinanzeigenLink">Meine Kleinanzeigen</span></a>
       <p class="mt-3 text-gray-500 text-sm">&copy; 2023 SA Transport Augsburg. Alle Rechte vorbehalten.</p>
     </footer>
   </div>
-
+  <script type="module" src="script.js" defer></script>
   <script>
-    // Extended translations including new elements
-    const translations = {
-      de: { 
-        title: "Umzugsanfrage", 
-        welcomeMessage: "Willkommen! Bitte füllen Sie das Formular aus und wir melden uns bei Ihnen.",
-        labelA: "Punkt A (Adresse)", 
-        labelB: "Punkt B (Adresse)", 
-        etageA: "Etage (A)", 
-        liftA: "Aufzug vorhanden (A)",
-        etageB: "Etage (B)", 
-        liftB: "Aufzug vorhanden (B)", 
-        distA: "Parkdistanz A (Meter)", 
-        distB: "Parkdistanz B (Meter)", 
-        tragerLabel: "Gibt es Träger?",
-        packing: "Verpackungsmaterial nötig?", 
-        datetime: "Datum & Uhrzeit", 
-        info: "Zusätzliche Infos", 
-        contactLabel: "Kontaktart:", 
-        submitBtn: "Absenden",
-        kleinanzeigenLink: "Meine Kleinanzeigen"
-      },
-      en: { 
-        title: "Moving Request", 
-        welcomeMessage: "Welcome! Please fill out the form and we will contact you.",
-        labelA: "Point A (Address)", 
-        labelB: "Point B (Address)", 
-        etageA: "Floor (A)", 
-        liftA: "Elevator available (A)",
-        etageB: "Floor (B)", 
-        liftB: "Elevator available (B)", 
-        distA: "Parking distance A (meters)", 
-        distB: "Parking distance B (meters)", 
-        tragerLabel: "Do you need movers?",
-        packing: "Need packing material?", 
-        datetime: "Date & Time", 
-        info: "Additional Information", 
-        contactLabel: "Contact method:", 
-        submitBtn: "Submit",
-        kleinanzeigenLink: "My Classifieds"
-      },
-      ru: { 
-        title: "Заявка на переезд", 
-        welcomeMessage: "Добро пожаловать! Заполните форму, и мы свяжемся с вами.",
-        labelA: "Точка А (адрес)", 
-        labelB: "Точка Б (адрес)", 
-        etageA: "Этаж (А)", 
-        liftA: "Есть лифт (А)",
-        etageB: "Этаж (Б)", 
-        liftB: "Есть лифт (Б)", 
-        distA: "Расстояние до парковки A", 
-        distB: "Расстояние до парковки B", 
-        tragerLabel: "Нужны грузчики?",
-        packing: "Нужен упаковочный материал?", 
-        datetime: "Дата и время", 
-        info: "Дополнительная информация", 
-        contactLabel: "Способ связи:", 
-        submitBtn: "Отправить",
-        kleinanzeigenLink: "Мои объявления"
-      },
-      ua: { 
-        title: "Запит на переїзд", 
-        welcomeMessage: "Ласкаво просимо! Будь ласка, заповніть форму, і ми зв'яжемося з вами.",
-        labelA: "Точка А (адреса)", 
-        labelB: "Точка Б (адреса)", 
-        etageA: "Поверх (А)", 
-        liftA: "Є ліфт (А)",
-        etageB: "Поверх (Б)", 
-        liftB: "Є ліфт (Б)", 
-        distA: "Відстань до паркування A", 
-        distB: "Відстань до паркування B", 
-        tragerLabel: "Потрібні вантажники?",
-        packing: "Потрібен пакувальний матеріал?", 
-        datetime: "Дата і час", 
-        info: "Додаткова інформація", 
-        contactLabel: "Спосіб зв'язку:", 
-        submitBtn: "Надіслати",
-        kleinanzeigenLink: "Мої оголошення"
-      },
-      ar: { 
-        title: "طلب نقل", 
-        welcomeMessage: "مرحبًا! يرجى ملء النموذج وسنتصل بك.",
-        labelA: "النقطة أ (العنوان)", 
-        labelB: "النقطة ب (العنوان)", 
-        etageA: "الطابق (أ)", 
-        liftA: "يوجد مصعد (أ)",
-        etageB: "الطابق (ب)", 
-        liftB: "يوجد مصعد (ب)", 
-        distA: "المسافة إلى الموقف أ", 
-        distB: "المسافة إلى الموقف ب", 
-        tragerLabel: "هل تحتاج إلى عمال؟",
-        packing: "هل تحتاج مواد تغليف؟", 
-        datetime: "التاريخ والوقت", 
-        info: "معلومات إضافية", 
-        contactLabel: "طريقة التواصل:", 
-        submitBtn: "إرسال",
-        kleinanzeigenLink: "إعلاناتي"
-      }
-    };
-
-    // Set language with localStorage support
-    function setLang(lang) {
-      localStorage.setItem('selectedLang', lang);
-      const t = translations[lang];
-      
-      for (const key in t) {
-        const elements = document.querySelectorAll(`[id="${key}"]`);
-        elements.forEach(el => {
-          el.textContent = t[key];
-        });
-      }
-      
-      // Update HTML lang attribute
-      document.documentElement.lang = lang;
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/sw.js').then(() => console.log('Service Worker registered'));
     }
-
-    // Initialize language
-    document.addEventListener('DOMContentLoaded', function() {
-      const savedLang = localStorage.getItem('selectedLang') || 'de';
-      setLang(savedLang);
-    });
-
-    // Form submission handler
-    document.getElementById('movingForm').addEventListener('submit', function(e) {
-      e.preventDefault();
-      
-      const form = e.target;
-      const submitBtn = form.querySelector('#submitBtn');
-      const originalBtnText = submitBtn.innerHTML;
-      
-      // Show loading state
-      submitBtn.disabled = true;
-      submitBtn.innerHTML = '<span class="animate-pulse">Wird gesendet...</span>';
-      
-      // Create a FormData object
-      const formData = new FormData(form);
-      
-      // Send form data using Fetch API
-      fetch(form.action, {
-        method: 'POST',
-        body: formData,
-        headers: {
-          'Accept': 'application/json'
-        }
-      })
-      .then(response => {
-        if (response.ok) {
-          // Success message
-          alert('Vielen Dank! Ihre Anfrage wurde erfolgreich gesendet.');
-          form.reset();
-        } else {
-          throw new Error('Fehler beim Senden der Anfrage');
-        }
-      })
-      .catch(error => {
-        alert('Fehler: ' + error.message);
-        console.error('Form submission error:', error);
-      })
-      .finally(() => {
-        // Restore button state
-        submitBtn.disabled = false;
-        submitBtn.innerHTML = originalBtnText;
-      });
-    });
   </script>
 </body>
 </html>
