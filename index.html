@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Форма заказа грузоперевозок по Аугсбургу</title>
+    <title>Заказ грузоперевозок по Аугсбургу</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             max-width: 800px;
-            margin: 0 auto;
+            margin: 20px auto;
             padding: 20px;
             background-color: #f4f4f4;
         }
@@ -18,7 +18,7 @@
             border-radius: 8px;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         }
-        h1 {
+        h1, h2 {
             text-align: center;
             color: #333;
         }
@@ -42,8 +42,8 @@
             border: none;
             border-radius: 4px;
             cursor: pointer;
-            width: 100%;
             font-size: 16px;
+            margin-right: 10px;
         }
         button:hover {
             background-color: #218838;
@@ -52,96 +52,231 @@
             color: red;
             font-size: 12px;
             display: none;
+            margin-bottom: 10px;
+        }
+        .button-group {
+            display: flex;
+            justify-content: space-between;
+        }
+        .cost-display {
+            margin: 20px 0;
+            padding: 10px;
+            background-color: #e9ecef;
+            border-radius: 4px;
+            text-align: center;
+            font-size: 18px;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-content {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+        }
+        @media (max-width: 600px) {
+            .form-container {
+                padding: 15px;
+            }
+            button {
+                width: 100%;
+                margin-bottom: 10px;
+            }
+            .button-group {
+                flex-direction: column;
+            }
         }
     </style>
 </head>
 <body>
     <div class="form-container">
         <h1>Заказ грузоперевозок по Аугсбургу</h1>
-        <form id="cargoForm" onsubmit="validateForm(event)">
+        <form id="cargoForm" onsubmit="validateForm(event)" aria-label="Форма заказа грузоперевозок">
             <!-- Контактная информация -->
-            <label for="name">Имя и фамилия *</label>
-            <input type="text" id="name" name="name" required>
-            <span class="error" id="nameError">Пожалуйста, введите имя и фамилию</span>
+            <label for="name">Имя и фамилия * / Name und Nachname *</label>
+            <input type="text" id="name" name="name" required aria-required="true" placeholder="Иван Иванов / John Doe">
+            <span class="error" id="nameError">Пожалуйста, введите имя и фамилию / Bitte geben Sie Ihren Namen ein</span>
 
-            <label for="phone">Телефон *</label>
-            <input type="tel" id="phone" name="phone" pattern="[0-9]{10,15}" required>
-            <span class="error" id="phoneError">Пожалуйста, введите корректный номер телефона</span>
+            <label for="phone">Телефон * / Telefon *</label>
+            <input type="tel" id="phone" name="phone" pattern="[0-9]{10,15}" required aria-required="true" placeholder="+491234567890">
+            <span class="error" id="phoneError">Пожалуйста, введите корректный номер телефона / Bitte geben Sie eine gültige Telefonnummer ein</span>
 
             <label for="email">Email *</label>
-            <input type="email" id="email" name="email" required>
-            <span class="error" id="emailError">Пожалуйста, введите корректный email</span>
+            <input type="email" id="email" name="email" required aria-required="true" placeholder="example@email.com">
+            <span class="error" id="emailError">Пожалуйста, введите корректный email / Bitte geben Sie eine gültige E-Mail ein</span>
 
             <!-- Адреса -->
-            <label for="pickupAddress">Адрес погрузки *</label>
-            <input type="text" id="pickupAddress" name="pickupAddress" placeholder="Улица, дом, город (Аугсбург)" required>
-            <span class="error" id="pickupAddressError">Пожалуйста, укажите адрес погрузки</span>
+            <label for="pickupAddress">Адрес погрузки * / Abholadresse *</label>
+            <input type="text" id="pickupAddress" name="pickupAddress" required aria-required="true" placeholder="Улица, дом, Аугсбург / Straße, Hausnummer, Augsburg">
+            <span class="error" id="pickupAddressError">Пожалуйста, укажите адрес погрузки / Bitte geben Sie die Abholadresse ein</span>
 
-            <label for="deliveryAddress">Адрес доставки *</label>
-            <input type="text" id="deliveryAddress" name="deliveryAddress" placeholder="Улица, дом, город (Аугсбург)" required>
-            <span class="error" id="deliveryAddressError">Пожалуйста, укажите адрес доставки</span>
+            <label for="deliveryAddress">Адрес доставки * / Lieferadresse *</label>
+            <input type="text" id="deliveryAddress" name="deliveryAddress" required aria-required="true" placeholder="Улица, дом, Аугсбург / Straße, Hausnummer, Augsburg">
+            <span class="error" id="deliveryAddressError">Пожалуйста, укажите адрес доставки / Bitte geben Sie die Lieferadresse ein</span>
+
+            <!-- Расстояние -->
+            <label for="distance">Расстояние (км) / Entfernung (km)</label>
+            <input type="number" id="distance" name="distance" min="0" step="0.1" readonly placeholder="Рассчитывается автоматически / Wird automatisch berechnet">
+            <span class="error" id="distanceError">Пожалуйста, укажите корректное расстояние / Bitte geben Sie eine gültige Entfernung ein</span>
 
             <!-- Детали груза -->
-            <label for="cargoType">Тип груза *</label>
-            <select id="cargoType" name="cargoType" required>
-                <option value="">Выберите тип груза</option>
-                <option value="furniture">Мебель</option>
-                <option value="appliances">Бытовая техника</option>
-                <option value="construction">Строительные материалы</option>
-                <option value="pallets">Паллеты</option>
-                <option value="other">Другое</option>
+            <label for="cargoType">Тип груза * / Frachttyp *</label>
+            <select id="cargoType" name="cargoType" required aria-required="true">
+                <option value="">Выберите тип груза / Frachttyp wählen</option>
+                <option value="furniture">Мебель / Möbel</option>
+                <option value="appliances">Бытовая техника / Haushaltsgeräte</option>
+                <option value="construction">Строительные материалы / Baumaterialien</option>
+                <option value="pallets">Паллеты / Paletten</option>
+                <option value="other">Другое / Sonstiges</option>
             </select>
-            <span class="error" id="cargoTypeError">Пожалуйста, выберите тип груза</span>
+            <span class="error" id="cargoTypeError">Пожалуйста, выберите тип груза / Bitte wählen Sie den Frachttyp</span>
 
-            <label for="weight">Вес груза (кг) *</label>
-            <input type="number" id="weight" name="weight" min="1" required>
-            <span class="error" id="weightError">Пожалуйста, укажите вес груза</span>
+            <label for="weight">Вес груза (кг) * / Gewicht der Fracht (kg) *</label>
+            <input type="number" id="weight" name="weight" min="1" step="0.1" required aria-required="true" placeholder="Например, 100 / z.B. 100">
+            <span class="error" id="weightError">Пожалуйста, укажите вес груза / Bitte geben Sie das Gewicht ein</span>
 
-            <label for="dimensions">Габариты груза (Д x Ш x В, см)</label>
-            <input type="text" id="dimensions" name="dimensions" placeholder="Например, 200 x 100 x 150">
+            <label for="dimensions">Габариты груза (Д x Ш x В, см) / Maße der Fracht (L x B x H, cm)</label>
+            <input type="text" id="dimensions" name="dimensions" pattern="\d+(\.\d+)?\s*x\s*\d+(\.\d+)?\s*x\s*\d+(\.\d+)?\s*$" placeholder="Например, 200 x 100 x 150">
+            <span class="error" id="dimensionsError">Пожалуйста, укажите корректные габариты / Bitte geben Sie korrekte Maße ein</span>
+
+            <!-- Время и грузчики -->
+            <label for="hours">Количество часов * / Anzahl der Stunden *</label>
+            <input type="number" id="hours" name="hours" min="1" required aria-required="true" placeholder="Например, 2 / z.B. 2" oninput="calculateCost()">
+            <span class="error" id="hoursError">Пожалуйста, укажите количество часов / Bitte geben Sie die Anzahl der Stunden ein</span>
+
+            <label for="loaders">Количество грузчиков / Anzahl der Träger</label>
+            <input type="number" id="loaders" name="loaders" min="0" placeholder="Например, 2 / z.B. 2" oninput="calculateCost()">
+            <span class="error" id="loadersError">Пожалуйста, укажите корректное количество грузчиков / Bitte geben Sie eine gültige Anzahl ein</span>
 
             <!-- Тип транспорта -->
-            <label for="vehicleType">Тип транспорта *</label>
-            <select id="vehicleType" name="vehicleType" required>
-                <option value="">Выберите тип транспорта</option>
-                <option value="van">Фургон (до 1.5 т)</option>
-                <option value="truck">Грузовик (до 3.5 т)</option>
-                <option value="largeTruck">Большой грузовик (до 10 т)</option>
-                <option value="special">Спецтехника</option>
-            </select>
-            <span class="error" id="vehicleTypeError">Пожалуйста, выберите тип транспорта</span>
-
-            <!-- Дополнительные услуги -->
-            <label>Дополнительные услуги</label>
-            <input type="checkbox" id="loading" name="services" value="loading">
-            <label for="loading" style="display: inline;">Услуги грузчиков</label><br>
-            <input type="checkbox" id="packaging" name="services" value="packaging">
-            <label for="packaging" style="display: inline;">Упаковка груза</label><br>
-            <input type="checkbox" id="urgent" name="services" value="urgent">
-            <label for="urgent" style="display: inline;">Срочная доставка</label><br>
+            <label>Тип транспорта / Fahrzeugtyp</label>
+            <p>Фургон до 3.5 т / Transporter bis 3,5 t</p>
 
             <!-- Дата и время -->
-            <label for="pickupDate">Дата погрузки *</label>
-            <input type="date" id="pickupDate" name="pickupDate" required>
-            <span class="error" id="pickupDateError">Пожалуйста, выберите дату погрузки</span>
+            <label for="pickupDate">Дата погрузки * / Abholdatum *</label>
+            <input type="date" id="pickupDate" name="pickupDate" required aria-required="true" min="2025-07-27">
+            <span class="error" id="pickupDateError">Пожалуйста, выберите дату не ранее сегодняшнего дня / Bitte wählen Sie ein Datum ab heute</span>
 
-            <label for="pickupTime">Время погрузки</label>
+            <label for="pickupTime">Время погрузки / Abholzeit</label>
             <input type="time" id="pickupTime" name="pickupTime">
 
             <!-- Комментарии -->
-            <label for="comments">Комментарии к заказу</label>
-            <textarea id="comments" name="comments" rows="4" placeholder="Укажите особые требования или дополнительную информацию"></textarea>
+            <label for="comments">Комментарии к заказу / Kommentare zur Bestellung</label>
+            <textarea id="comments" name="comments" rows="4" placeholder="Укажите особые требования / Geben Sie besondere Anforderungen an"></textarea>
 
-            <button type="submit">Отправить заказ</button>
+            <!-- Расчет стоимости -->
+            <div class="cost-display" id="costDisplay">Итоговая стоимость: 0.00 € / Gesamtkosten: 0.00 €</div>
+
+            <div class="button-group">
+                <button type="submit">Отправить заказ / Bestellung senden</button>
+                <button type="reset" onclick="resetForm()">Сбросить / Zurücksetzen</button>
+            </div>
         </form>
     </div>
 
+    <div class="modal" id="confirmationModal">
+        <div class="modal-content">
+            <h2>Успех / Erfolg</h2>
+            <p>Ваш заказ успешно отправлен! / Ihre Bestellung wurde erfolgreich gesendet!</p>
+            <button onclick="closeModal()">Закрыть / Schließen</button>
+        </div>
+    </div>
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places&callback=initAutocomplete" async defer></script>
     <script>
+        let autocompletePickup, autocompleteDelivery;
+
+        function initAutocomplete() {
+            // Автодополнение для адреса погрузки
+            autocompletePickup = new google.maps.places.Autocomplete(
+                document.getElementById('pickupAddress'),
+                {
+                    componentRestrictions: { country: 'de' },
+                    fields: ['address_components', 'geometry'],
+                    types: ['address']
+                }
+            );
+            autocompletePickup.addListener('place_changed', calculateDistance);
+
+            // Автодополнение для адреса доставки
+            autocompleteDelivery = new google.maps.places.Autocomplete(
+                document.getElementById('deliveryAddress'),
+                {
+                    componentRestrictions: { country: 'de' },
+                    fields: ['address_components', 'geometry'],
+                    types: ['address']
+                }
+            );
+            autocompleteDelivery.addListener('place_changed', calculateDistance);
+        }
+
+        function calculateDistance() {
+            const pickupPlace = autocompletePickup.getPlace();
+            const deliveryPlace = autocompleteDelivery.getPlace();
+
+            if (pickupPlace && deliveryPlace) {
+                const pickupLatLng = pickupPlace.geometry.location;
+                const deliveryLatLng = deliveryPlace.geometry.location;
+
+                const service = new google.maps.DistanceMatrixService();
+                service.getDistanceMatrix(
+                    {
+                        origins: [pickupLatLng],
+                        destinations: [deliveryLatLng],
+                        travelMode: 'DRIVING',
+                        unitSystem: google.maps.UnitSystem.METRIC
+                    },
+                    (response, status) => {
+                        if (status === 'OK') {
+                            const distance = response.rows[0].elements[0].distance.value / 1000; // Расстояние в км
+                            document.getElementById('distance').value = distance.toFixed(1);
+                            calculateCost();
+                        } else {
+                            document.getElementById('distanceError').textContent = 'Ошибка расчета расстояния / Fehler bei der Entfernungsberechnung';
+                            document.getElementById('distanceError').style.display = 'block';
+                        }
+                    }
+                );
+            }
+        }
+
+        function calculateCost() {
+            const hours = parseFloat(document.getElementById('hours').value) || 0;
+            const loaders = parseInt(document.getElementById('loaders').value) || 0;
+            const distance = parseFloat(document.getElementById('distance').value) || 0;
+
+            let cost = 0;
+            // Стоимость за время: 45 евро за первый час, 30 евро за последующие
+            if (hours >= 1) {
+                cost += 45; // Первый час
+                if (hours > 1) {
+                    cost += (hours - 1) * 30; // Последующие часы
+                }
+            }
+            // Стоимость грузчиков: 25 евро/час за каждого
+            cost += loaders * hours * 25;
+            // Стоимость за расстояние: 0.80 евро/км для расстояния более 20 км
+            if (distance > 20) {
+                cost += (distance - 20) * 0.8;
+            }
+
+            document.getElementById('costDisplay').textContent = `Итоговая стоимость: ${cost.toFixed(2)} € / Gesamtkosten: ${cost.toFixed(2)} €`;
+        }
+
         function validateForm(event) {
             event.preventDefault();
             let isValid = true;
-
-            // Сброс ошибок
             document.querySelectorAll('.error').forEach(error => error.style.display = 'none');
 
             // Валидация обязательных полей
@@ -175,6 +310,12 @@
                 isValid = false;
             }
 
+            const distance = document.getElementById('distance').value;
+            if (distance && distance < 0) {
+                document.getElementById('distanceError').style.display = 'block';
+                isValid = false;
+            }
+
             const cargoType = document.getElementById('cargoType').value;
             if (!cargoType) {
                 document.getElementById('cargoTypeError').style.display = 'block';
@@ -187,9 +328,21 @@
                 isValid = false;
             }
 
-            const vehicleType = document.getElementById('vehicleType').value;
-            if (!vehicleType) {
-                document.getElementById('vehicleTypeError').style.display = 'block';
+            const dimensions = document.getElementById('dimensions').value.trim();
+            if (dimensions && !dimensions.match(/\d+(\.\d+)?\s*x\s*\d+(\.\d+)?\s*x\s*\d+(\.\d+)?\s*$/)) {
+                document.getElementById('dimensionsError').style.display = 'block';
+                isValid = false;
+            }
+
+            const hours = document.getElementById('hours').value;
+            if (!hours || hours < 1) {
+                document.getElementById('hoursError').style.display = 'block';
+                isValid = false;
+            }
+
+            const loaders = document.getElementById('loaders').value;
+            if (loaders && loaders < 0) {
+                document.getElementById('loadersError').style.display = 'block';
                 isValid = false;
             }
 
@@ -200,9 +353,22 @@
             }
 
             if (isValid) {
-                alert('Заказ успешно отправлен!');
+                document.getElementById('confirmationModal').style.display = 'flex';
                 document.getElementById('cargoForm').reset();
+                document.getElementById('costDisplay').textContent = `Итоговая стоимость: 0.00 € / Gesamtkosten: 0.00 €`;
+                document.getElementById('distance').value = '';
             }
+        }
+
+        function resetForm() {
+            document.getElementById('cargoForm').reset();
+            document.querySelectorAll('.error').forEach(error => error.style.display = 'none');
+            document.getElementById('costDisplay').textContent = `Итоговая стоимость: 0.00 € / Gesamtkosten: 0.00 €`;
+            document.getElementById('distance').value = '';
+        }
+
+        function closeModal() {
+            document.getElementById('confirmationModal').style.display = 'none';
         }
     </script>
 </body>
