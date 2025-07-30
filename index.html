@@ -1,0 +1,119 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Заказ грузоперевозок по Аугсбургу</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        .form-container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        label {
+            display: block;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+        input, select, textarea {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            background-color: #28a745;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .cost-display {
+            background-color: #e9ecef;
+            padding: 10px;
+            border-radius: 4px;
+            text-align: center;
+            font-size: 18px;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+<div class="form-container">
+    <h1>Заказ грузоперевозок по Аугсбургу</h1>
+    <form id="cargoForm" onsubmit="validateForm(event)">
+        <label for="pickupAddress">Адрес погрузки *</label>
+        <input type="text" id="pickupAddress" required>
+
+        <label for="deliveryAddress">Адрес доставки *</label>
+        <input type="text" id="deliveryAddress" required>
+
+        <label for="distance">Расстояние (в км)</label>
+        <input type="number" id="distance" min="0" step="0.1" placeholder="Введите вручную">
+
+        <label for="hours">Количество часов *</label>
+        <input type="number" id="hours" min="1" required oninput="calculateCost()">
+
+        <label for="loaders">Количество грузчиков</label>
+        <input type="number" id="loaders" min="0" oninput="calculateCost()">
+
+        <div class="cost-display" id="costDisplay">Итоговая стоимость: 0.00 €</div>
+
+        <button type="submit">Отправить заказ</button>
+        <button type="reset" onclick="resetForm()">Сбросить</button>
+    </form>
+</div>
+
+<script>
+function calculateCost() {
+    const hours = parseFloat(document.getElementById('hours').value) || 0;
+    const loaders = parseInt(document.getElementById('loaders').value) || 0;
+    const distance = parseFloat(document.getElementById('distance').value) || 0;
+    let cost = 0;
+
+    if (hours >= 1) {
+        cost += 45;
+        if (hours > 1) {
+            cost += (hours - 1) * 30;
+        }
+    }
+
+    cost += loaders * hours * 25;
+
+    if (distance > 20) {
+        cost += (distance - 20) * 0.8;
+    }
+
+    document.getElementById('costDisplay').textContent = `Итоговая стоимость: ${cost.toFixed(2)} €`;
+}
+
+function validateForm(event) {
+    event.preventDefault();
+    alert("Форма успешно отправлена!");
+    document.getElementById('cargoForm').reset();
+    document.getElementById('costDisplay').textContent = "Итоговая стоимость: 0.00 €";
+}
+
+function resetForm() {
+    document.getElementById('costDisplay').textContent = "Итоговая стоимость: 0.00 €";
+}
+</script>
+</body>
+</html>
